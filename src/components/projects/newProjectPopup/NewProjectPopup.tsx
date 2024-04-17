@@ -26,6 +26,7 @@ export default function NewProjectPopup({setIsVisible}:Props) {
     <div className="absolute top-0 left-0 w-full h-full bg-slate-900/50 flex justify-center items-center" onClick={() => setIsVisible(false)}>
       <div onClick={handleClosure} className="flex items-center justify-start flex-col w-[400px] h-[300px] gap-y-8 bg-slate-900 rounded-2xl p-8">
         <h3 className="text-2xl font-bold">Setup</h3>
+        
         <form className="flex flex-col items-center justify-between bg-slate-800 w-full h-full rounded-lg p-2">
           <div className="flex flex-col gap-2 w-full">
             <label className="text-lg">Project's Name</label>

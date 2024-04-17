@@ -7,7 +7,6 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Reload');
     location.pathname === '/' ? navigate('/home') : undefined;
   }, [])
 

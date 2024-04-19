@@ -3,9 +3,11 @@ import ProjectsItem from "../../common/ProjectsItem";
 import NewProjectPopup from "./newProjectPopup/NewProjectPopup";
 import { useState } from "react";
 
-export default function Projects() {
-  const projects:string[] = [ "Night call", "Sounds of a soul", "Last word", 
-                              "Blue Paradise", "Fate: Stay Night", "Fate: Grand Order" ];
+type Props = {
+  projects: string[]
+}
+
+export default function Projects({projects}: Props) {
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
 

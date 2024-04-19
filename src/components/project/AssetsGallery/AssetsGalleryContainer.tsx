@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { asssetsAPI } from "../../../axios/requests";
+import { projectAPI } from "../../../axios/requests";
 import AssetsGallery from "./AssetsGallery";
 import Loading from "../../../common/Loading";
 
@@ -12,7 +12,7 @@ export default function AssetsGalleryContainer({projectName}: Props) {
   const [images, setImages] = useState<any|null>(null);
 
   const requestImage = async () => {
-      const response = await asssetsAPI.getImages(projectName);
+      const response = await projectAPI.getImages(projectName);
       setImages(response.images);
   }
 
@@ -22,8 +22,6 @@ export default function AssetsGalleryContainer({projectName}: Props) {
     }catch(error) {
       console.log("Some error");
     }
-    console.log("Rerendering", images);
-    
   }, [])
 
   return images == null ? <Loading /> : <AssetsGallery images={images} />;

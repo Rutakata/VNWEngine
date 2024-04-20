@@ -13,9 +13,9 @@ function App() {
   return (
     <>
       <Header />
-      <main className="mt-5 px-10">
+      <div className="my-5 px-5 grow flex flex-col">
         <Outlet />
-      </main>
+      </div>
     </>
   )
 }

@@ -7,13 +7,23 @@ const instance = axios.create({
 const SUCCESS = 'SUCCESS';
 
 export const projectAPI = {
-  createProject: async (projectName: string): Promise<any> => {
+  createProject: async (projectFolder: string, projectName: string): Promise<any> => {
     try {
-      const respose: AxiosResponse = await instance.get(`/projects/create?project=${projectName}`);
+      const respose: AxiosResponse = await instance.post(`/projects/create?project=${projectFolder}`, {projectName});
       if (respose.status === 200) {
         return SUCCESS;
       }
     }catch(error) {
+      return error;
+    }
+  },
+  getProjectInfo: async (projectFolder: string) => {
+    try {
+      const response: AxiosResponse = await instance.get(`/project/info?project=${projectFolder}`);
+      if (response.status === 200) {
+        return response.data.data;
+      }
+    }catch (error) {
       return error;
     }
   },
@@ -25,10 +35,10 @@ export const projectAPI = {
       return error
     }
   },
-  getImages: async (projectName: string): Promise<any> => {
+  getAssets: async (projectName: string): Promise<any> => {
     try {
       const response: AxiosResponse = await instance.get(`/assets?project=${projectName}`);
-      return response.data;
+      if (response.status === 200) return response.data;
     }catch(error) {
       return error;
     }

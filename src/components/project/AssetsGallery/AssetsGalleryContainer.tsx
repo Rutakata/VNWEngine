@@ -3,17 +3,16 @@ import { projectAPI } from "../../../axios/requests";
 import AssetsGallery from "./AssetsGallery";
 import Loading from "../../../common/Loading";
 
-
 type Props = {
   projectName: string
 }
 
 export default function AssetsGalleryContainer({projectName}: Props) {
-  const [images, setImages] = useState<any|null>(null);
+  const [assets, setAssets] = useState<any|null>(null);
 
   const requestImage = async () => {
-      const response = await projectAPI.getImages(projectName);
-      setImages(response.images);
+    const response = await projectAPI.getAssets(projectName);
+    setAssets(response.assets);
   }
 
   useEffect(() => {
@@ -24,6 +23,6 @@ export default function AssetsGalleryContainer({projectName}: Props) {
     }
   }, [])
 
-  return images == null ? <Loading /> : <AssetsGallery images={images} />;
+  return assets == null ? <Loading /> : <AssetsGallery assets={assets} />;
 
 }

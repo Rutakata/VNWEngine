@@ -1,9 +1,9 @@
-import Projects from "./Projects";
 import { projectAPI } from "../../axios/requests";
 import { useEffect, useState } from "react";
 import Loading from "../../common/Loading";
+import ProjectsList from "./ProjectsList";
 
-export default function ProjectsContainer() {
+export default function ProjectsListContainer() {
   const [projects, setProjects] = useState<string[]|null>(null);
 
   const requestProjects = async () => {
@@ -22,5 +22,5 @@ export default function ProjectsContainer() {
     
   }, [])
 
-  return projects == null ? <Loading /> : <Projects projects={projects} />;
+  return projects == null ? <Loading /> : <ProjectsList projects={projects} />;
 }

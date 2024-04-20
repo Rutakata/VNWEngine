@@ -4,8 +4,8 @@ import './index.css'
 import { createBrowserRouter,RouterProvider } from "react-router-dom";
 import Settings from './components/settings/Settings.tsx';
 import Home from './components/home/Home.tsx';
-import Project from './components/project/Project.tsx';
-import ProjectsContainer from './components/projects/ProjectsContainer.tsx';
+import ProjectContainer from './components/project/ProjectContainer.tsx';
+import Projects from './components/projects/Projects.tsx';
 
 
 const router = createBrowserRouter([
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/projects",
-        element: <ProjectsContainer />
+        element: <Projects />
       },
       {
         path: "/settings",
@@ -26,8 +26,8 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: "/project/:projectName",
-        element: <Project />
+        path: "/project/:projectFolder",
+        element: <ProjectContainer />
       }
     ]
   },

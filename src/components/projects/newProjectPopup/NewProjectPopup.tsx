@@ -12,10 +12,10 @@ export default function NewProjectPopup({setIsVisible}:Props) {
   const navigate = useNavigate();
 
   const onProjectCreation = async () => {
-    const response = await projectAPI.createProject(projectName as string);
+    const response = await projectAPI.createProject(projectName?.toLowerCase().split(' ').join('-') as string, projectName as string);
 
     if (response+'' === 'SUCCESS') {
-      navigate(`/project/${projectName?.toLowerCase().split(' ').join('-')}}`, { state: {projectName} });
+      navigate(`/project/${projectName?.toLowerCase().split(' ').join('-')}`, { state: {projectName} });
     }
   }
   

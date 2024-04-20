@@ -1,13 +1,9 @@
 import PageHeader from "../../common/PageHeader";
-import ProjectsItem from "../../common/ProjectsItem";
+import ProjectsListContainer from "./ProjectsListContainer";
 import NewProjectPopup from "./newProjectPopup/NewProjectPopup";
 import { useState } from "react";
 
-type Props = {
-  projects: string[]
-}
-
-export default function Projects({projects}: Props) {
+export default function Projects() {
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -16,14 +12,12 @@ export default function Projects({projects}: Props) {
       <PageHeader>Projects</PageHeader>
       <div 
         onClick={() => {setIsVisible(true)}} 
-        className="bg-lime-600 px-4 py-3 mb-4 inline-block rounded-xl text-white hover:bg-lime-800 cursor-pointer">
+        className="bg-lime-600 px-4 py-3 mb-4 inline-block rounded-xl text-white hover:bg-lime-800 cursor-pointer w-fit">
         Create new project
       </div>
 
       <div className="flex flex-row flex-wrap gap-5">
-        {projects.map((project: string) => {
-          return <ProjectsItem title={project} />
-        })}
+        <ProjectsListContainer />
       </div>
 
       { isVisible ? <NewProjectPopup setIsVisible={setIsVisible} /> : null }

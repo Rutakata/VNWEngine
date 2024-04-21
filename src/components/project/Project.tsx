@@ -1,5 +1,5 @@
 import PageHeader from '../../common/PageHeader';
-import AssetsGalleryContainer from './AssetsGallery/AssetsGalleryContainer';
+import Materials from './Materials/Materials';
 import Preview from './Preview/Preview';
 import TextEditorContainer from './TextEditor/TextEditorContainer';
 
@@ -17,8 +17,9 @@ export default function Project({projectInfo}: Props) {
         <TextEditorContainer />
         <div className='flex flex-col gap-7'>
           <Preview />
-          <AssetsGalleryContainer />
+          {/* <AssetsGalleryContainer /> */}
           {/* <div className='bg-slate-900 h-full'>Scene/Assets/Audio lists</div> */}
+          <Materials />
         </div>
       </div>
     </>

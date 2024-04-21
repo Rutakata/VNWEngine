@@ -2,7 +2,7 @@ import Project from "./Project";
 import Loading from "../../common/Loading";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { clearProjectData, fetchProjectInfo, setProjectFolder } from "../../store/slices/projectSlice";
+import { clearProjectData, fetchProjectData, setProjectFolder } from "../../store/slices/projectSlice";
 import { useAppDispatch } from "../../hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
@@ -18,7 +18,7 @@ export default function ProjectContainer() {
   }, [])
 
   useEffect(() => {  
-    if (projectFolder) dispatch(fetchProjectInfo(projectFolder));
+    if (projectFolder) dispatch(fetchProjectData(projectFolder));
   }, [projectFolder])
 
   return projectInfo == null ? <Loading /> : <Project projectInfo={projectInfo} />;

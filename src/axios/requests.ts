@@ -35,7 +35,7 @@ export const projectAPI = {
       return error
     }
   },
-  getAssets: async (projectFolder: string): Promise<any> => {
+  getProjectAssets: async (projectFolder: string): Promise<any> => {
     try {
       const response: AxiosResponse = await instance.get(`/project/assets?project=${projectFolder}`);
       if (response.status === 200) return response.data;
@@ -46,6 +46,22 @@ export const projectAPI = {
   getProjectText: async (projectFolder: string): Promise<any> => {
     try {
       const response: AxiosResponse = await instance.get(`/project/text?project=${projectFolder}`);
+      if (response.status === 200) return response.data;
+    }catch(error) {
+      return error;
+    }
+  },
+  getProjectScenes: async (projectFolder: string): Promise<any> => {
+    try {
+      const response: AxiosResponse = await instance.get(`/project/scenes?project=${projectFolder}`);
+      if (response.status === 200) return response.data;
+    }catch(error) {
+      return error;
+    }
+  },
+  getProjectAudio: async (projectFolder: string): Promise<any> => {
+    try {
+      const response: AxiosResponse = await instance.get(`/project/audio?project=${projectFolder}`);
       if (response.status === 200) return response.data;
     }catch(error) {
       return error;

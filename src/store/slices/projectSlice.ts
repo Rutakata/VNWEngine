@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import type { PayloadAction } from '@reduxjs/toolkit';
-import { Text, Config } from '../../types';
+import { Text, Config, Scene, Audio } from '../../types';
 import { projectAPI } from '../../axios/requests';
 
 type Loading = 'projectInfo' | 'projectText' | null
@@ -10,6 +10,8 @@ export interface projectState {
   projectFolder: string | null,
   projectText: Text[] | null,
   projectAssets: string[] | null,
+  projectScenes: Scene[] | null,
+  projectAudio: Audio[] | null,
   loading: Loading
 }
 
@@ -18,6 +20,8 @@ const initialState: projectState = {
   projectFolder: null,
   projectText: null,
   projectAssets: null,
+  projectScenes: null,
+  projectAudio: null,
   loading: null
 }
 
@@ -40,8 +44,28 @@ export const fetchProjectText = createAsyncThunk(
 export const fetchProjectAssets = createAsyncThunk(
   'project/fetchProjectAssets',
   async (projectFolder: string) => {
-    const response = await projectAPI.getAssets(projectFolder);
+    const response = await projectAPI.getProjectAssets(projectFolder);
     return response;
+  }
+)
+
+export const fetchProjectScenes = createAsyncThunk(
+  'project/fetchProjectScenes',
+  async (projectFolder: string) => {
+    const response = await projectAPI.getProjectScenes(projectFolder);
+    return response;
+  }
+)
+
+export const fetchProjectData = createAsyncThunk(
+  'project/fetchProjectData', 
+  async (projectFolder: string) => {
+    const info = await projectAPI.getProjectInfo(projectFolder);
+    const scenes = await projectAPI.getProjectScenes(projectFolder);
+    const text = await projectAPI.getProjectText(projectFolder);
+    const audio = await projectAPI.getProjectAudio(projectFolder);
+    const assets = await projectAPI.getProjectAssets(projectFolder);
+    return { info, scenes, text, audio, assets };
   }
 )
 
@@ -60,6 +84,8 @@ export const projectSlice = createSlice({
       state.projectInfo = null;
       state.projectText = null;
       state.projectAssets = null;
+      state.projectScenes = null;
+      state.projectAudio = null; 
     }
   },
   extraReducers: (builder) => {
@@ -72,6 +98,13 @@ export const projectSlice = createSlice({
     })
     .addCase(fetchProjectAssets.fulfilled, (state, action) => {      
       state.projectAssets = action.payload;
+    })
+    .addCase(fetchProjectData.fulfilled, (state, action) => {
+      state.projectInfo = action.payload.info;
+      state.projectScenes = action.payload.scenes;
+      state.projectText = action.payload.text;
+      state.projectAudio = action.payload.audio;
+      state.projectAssets = action.payload.assets;
     })
   }
 })

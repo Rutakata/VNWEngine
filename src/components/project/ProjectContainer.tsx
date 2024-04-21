@@ -1,27 +1,23 @@
-import { useParams } from "react-router-dom";
 import Project from "./Project";
-import { useEffect, useState } from "react";
-import { projectAPI } from "../../axios/requests";
 import Loading from "../../common/Loading";
-
-type Config = {
-  projectName: string
-}
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { fetchProjectInfo, setProjectFolder } from "../../store/slices/projectSlice";
+import { useAppDispatch } from "../../hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 export default function ProjectContainer() {
-  const [projectInfo, setProjectInfo] = useState<Config | null>(null);
   const { projectFolder } = useParams();
-
-  const requestProjectInfo = async (projectFolder: string) => {
-    const projectInfo: Config = await projectAPI.getProjectInfo(projectFolder);
-    setProjectInfo(projectInfo);
-  }
+  const dispatch = useAppDispatch();
+  const projectInfo = useSelector((state: RootState) => state.project.projectInfo);
 
   useEffect(() => {
     if (projectFolder) {
-      requestProjectInfo(projectFolder);
+      dispatch(setProjectFolder(projectFolder));
+      dispatch(fetchProjectInfo(projectFolder));
     }
   }, [])
 
-  return projectInfo == null ? <Loading /> : <Project projectInfo={projectInfo as Config} projectFolder={projectFolder as string} />;
+  return projectInfo == null ? <Loading /> : <Project projectInfo={projectInfo} />;
 }

@@ -35,9 +35,17 @@ export const projectAPI = {
       return error
     }
   },
-  getAssets: async (projectName: string): Promise<any> => {
+  getAssets: async (projectFolder: string): Promise<any> => {
     try {
-      const response: AxiosResponse = await instance.get(`/assets?project=${projectName}`);
+      const response: AxiosResponse = await instance.get(`/assets?project=${projectFolder}`);
+      if (response.status === 200) return response.data;
+    }catch(error) {
+      return error;
+    }
+  },
+  getProjectText: async (projectFolder: string): Promise<any> => {
+    try {
+      const response: AxiosResponse = await instance.get(`/project/text?project=${projectFolder}`);
       if (response.status === 200) return response.data;
     }catch(error) {
       return error;

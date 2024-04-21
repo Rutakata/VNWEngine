@@ -1,28 +1,21 @@
-import { useEffect, useState } from "react";
-import { projectAPI } from "../../../axios/requests";
+import { useEffect } from "react";
 import AssetsGallery from "./AssetsGallery";
 import Loading from "../../../common/Loading";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { useAppDispatch } from "../../../hooks";
+import { fetchProjectAssets } from "../../../store/slices/projectSlice";
 
-type Props = {
-  projectName: string
-}
-
-export default function AssetsGalleryContainer({projectName}: Props) {
-  const [assets, setAssets] = useState<any|null>(null);
-
-  const requestImage = async () => {
-    const response = await projectAPI.getAssets(projectName);
-    setAssets(response.assets);
-  }
+export default function AssetsGalleryContainer() {
+  const { projectFolder, projectAssets } = useSelector((state: RootState) => state.project);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    try {
-      requestImage();
-    }catch(error) {
-      console.log("Some error");
+    if (projectFolder) {
+      dispatch(fetchProjectAssets(projectFolder));
     }
   }, [])
 
-  return assets == null ? <Loading /> : <AssetsGallery assets={assets} />;
+  return projectAssets == null ? <Loading /> : <AssetsGallery assets={projectAssets} />;
 
 }

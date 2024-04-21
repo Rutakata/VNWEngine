@@ -37,7 +37,7 @@ export const projectAPI = {
   },
   getAssets: async (projectFolder: string): Promise<any> => {
     try {
-      const response: AxiosResponse = await instance.get(`/assets?project=${projectFolder}`);
+      const response: AxiosResponse = await instance.get(`/project/assets?project=${projectFolder}`);
       if (response.status === 200) return response.data;
     }catch(error) {
       return error;

@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: "/project/:projectFolder",
+        path: "/project/:project",
         element: <ProjectContainer />
       }
     ]

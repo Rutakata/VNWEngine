@@ -2,22 +2,24 @@ import Project from "./Project";
 import Loading from "../../common/Loading";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchProjectInfo, setProjectFolder } from "../../store/slices/projectSlice";
+import { clearProjectData, fetchProjectInfo, setProjectFolder } from "../../store/slices/projectSlice";
 import { useAppDispatch } from "../../hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
 export default function ProjectContainer() {
-  const { projectFolder } = useParams();
+  const { project } = useParams();
   const dispatch = useAppDispatch();
-  const projectInfo = useSelector((state: RootState) => state.project.projectInfo);
+  const { projectFolder, projectInfo } = useSelector((state: RootState) => state.project);
 
   useEffect(() => {
-    if (projectFolder) {
-      dispatch(setProjectFolder(projectFolder));
-      dispatch(fetchProjectInfo(projectFolder));
-    }
+    if (project) dispatch(setProjectFolder(project));
+    return () => { dispatch(clearProjectData()) };
   }, [])
+
+  useEffect(() => {  
+    if (projectFolder) dispatch(fetchProjectInfo(projectFolder));
+  }, [projectFolder])
 
   return projectInfo == null ? <Loading /> : <Project projectInfo={projectInfo} />;
 }

@@ -43,6 +43,14 @@ export const projectAPI = {
       return error;
     }
   },
+  getProjectMusic: async (projectFolder: string): Promise<any> => {
+    try {
+      const response: AxiosResponse = await instance.get(`/project/music?project=${projectFolder}`);
+      if (response.status === 200) return response.data;
+    }catch(error) {
+      return error;
+    }
+  },
   getProjectText: async (projectFolder: string): Promise<any> => {
     try {
       const response: AxiosResponse = await instance.get(`/project/text?project=${projectFolder}`);

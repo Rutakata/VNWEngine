@@ -9,7 +9,7 @@ export type Text = {
 
 export type Scene = {
   id: number,
-  scene_title: string,
+  sceneTitle: string,
   background: string,
   assets: {
     [key: string] : string[]

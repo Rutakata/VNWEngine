@@ -1,18 +1,10 @@
-import PageHeader from '../../common/PageHeader';
 import Materials from './Materials/Materials';
 import Preview from './Preview/Preview';
 import TextEditorContainer from './TextEditor/TextEditorContainer';
 
-type Props = {
-  projectInfo: {
-    projectName: string
-  }
-}
-
-export default function Project({projectInfo}: Props) {
+export default function Project() {
   return (
     <>
-      <PageHeader>{projectInfo.projectName}</PageHeader>
       <div className='flex justify-between grow gap-7'>
         <TextEditorContainer />
         <div className='flex flex-col gap-7'>

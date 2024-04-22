@@ -21,5 +21,5 @@ export default function ProjectContainer() {
     if (projectFolder) dispatch(fetchProjectData(projectFolder));
   }, [projectFolder])
 
-  return projectInfo == null ? <Loading /> : <Project projectInfo={projectInfo} />;
+  return projectInfo == null ? <Loading /> : <Project />;
 }

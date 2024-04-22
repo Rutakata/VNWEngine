@@ -7,7 +7,7 @@ import { RootState } from "../../../store/store";
 // import { fetchProjectAssets } from "../../../store/slices/projectSlice";
 
 export default function AssetsGalleryContainer() {
-  const { projectAssets } = useSelector((state: RootState) => state.project);
+  const { projectAssets, projectFolder } = useSelector((state: RootState) => state.project);
   // const dispatch = useAppDispatch();
 
   // useEffect(() => {
@@ -16,6 +16,6 @@ export default function AssetsGalleryContainer() {
   //   }
   // }, [])
 
-  return projectAssets == null ? <Loading /> : <AssetsGallery assets={projectAssets} />;
+  return projectAssets == null ? <Loading /> : <AssetsGallery assets={projectAssets} projectFolder={projectFolder as string} />;
 
 }

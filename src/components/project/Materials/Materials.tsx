@@ -1,6 +1,8 @@
 import { useState } from "react";
 import AssetsGalleryContainer from "../AssetsGallery/AssetsGalleryContainer";
 import MaterialsItem from "./MaterialsItem";
+import ScenesGallery from "../ScenesGallery/ScenesGallery";
+import AudioGallery from "../AudioGallery/AudioGallery";
 
 export default function Materials() {
   const [ menuItem, setMenuItem ] = useState<number>(0);
@@ -16,7 +18,7 @@ export default function Materials() {
         }
       </div>
       {
-        menuItem === 0 ? <div>Scenes</div> : menuItem === 1 ? <AssetsGalleryContainer /> : <div>Audio</div>
+        menuItem === 0 ? <ScenesGallery /> : menuItem === 1 ? <AssetsGalleryContainer /> : <AudioGallery />
       }
     </div>
   )

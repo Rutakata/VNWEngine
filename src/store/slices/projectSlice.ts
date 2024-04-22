@@ -10,6 +10,7 @@ export interface projectState {
   projectFolder: string | null,
   projectText: Text[] | null,
   projectAssets: string[] | null,
+  projectMusic: string[] | null,
   projectScenes: Scene[] | null,
   projectAudio: Audio[] | null,
   loading: Loading
@@ -20,6 +21,7 @@ const initialState: projectState = {
   projectFolder: null,
   projectText: null,
   projectAssets: null,
+  projectMusic: null,
   projectScenes: null,
   projectAudio: null,
   loading: null
@@ -49,6 +51,14 @@ export const fetchProjectAssets = createAsyncThunk(
   }
 )
 
+export const fetchProjectMusic = createAsyncThunk(
+  'project/fetchProjectMusic',
+  async (projectFolder: string) => {
+    const response = await projectAPI.getProjectMusic(projectFolder);
+    return response;
+  }
+)
+
 export const fetchProjectScenes = createAsyncThunk(
   'project/fetchProjectScenes',
   async (projectFolder: string) => {
@@ -65,7 +75,8 @@ export const fetchProjectData = createAsyncThunk(
     const text = await projectAPI.getProjectText(projectFolder);
     const audio = await projectAPI.getProjectAudio(projectFolder);
     const assets = await projectAPI.getProjectAssets(projectFolder);
-    return { info, scenes, text, audio, assets };
+    const music = await projectAPI.getProjectMusic(projectFolder);
+    return { info, scenes, text, audio, assets, music };
   }
 )
 
@@ -99,12 +110,16 @@ export const projectSlice = createSlice({
     .addCase(fetchProjectAssets.fulfilled, (state, action) => {      
       state.projectAssets = action.payload;
     })
+    .addCase(fetchProjectMusic.fulfilled, (state, action) => {      
+      state.projectMusic = action.payload;
+    })
     .addCase(fetchProjectData.fulfilled, (state, action) => {
       state.projectInfo = action.payload.info;
       state.projectScenes = action.payload.scenes;
       state.projectText = action.payload.text;
       state.projectAudio = action.payload.audio;
       state.projectAssets = action.payload.assets;
+      state.projectMusic = action.payload.music;
     })
   }
 })
